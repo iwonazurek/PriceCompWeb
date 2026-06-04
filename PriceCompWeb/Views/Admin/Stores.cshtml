@@ -1,0 +1,35 @@
+@model IEnumerable<Store>
+
+@{
+    ViewData["Title"] = "Sklepy";
+}
+
+<section class="container py-5">
+    <div class="section-heading">
+        <h1>Sklepy</h1>
+        <a class="btn btn-primary" asp-action="CreateStore">Dodaj sklep</a>
+    </div>
+    <partial name="_AdminMessage" />
+    <div class="table-responsive data-surface">
+        <table class="table align-middle">
+            <thead><tr><th>Nazwa</th><th>Typ</th><th>Miasto</th><th>Dostawa</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Type</td>
+                    <td>@item.City</td>
+                    <td>@item.DeliveryCost.ToString("0.00") zl</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="EditStore" asp-route-id="@item.Id">Edytuj</a>
+                        <form asp-action="DeleteStore" asp-route-id="@item.Id" method="post" class="d-inline" data-confirm="Usunac sklep?">
+                            <button class="btn btn-sm btn-outline-danger" type="submit">Usun</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,114 @@
+@model HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Oferty";
+}
+
+<section class="hero">
+    <div class="hero-overlay">
+        <div class="container">
+            <div class="hero-content">
+                <p class="eyebrow">Porownywarka cen</p>
+                <h1>@(Model.Hero?.Title ?? "Asystent Zakupowy")</h1>
+                <p>@(Model.Hero?.Body ?? "Znajdz najtansze produkty i policz koszt calego koszyka.")</p>
+                <form class="search-panel" method="get" asp-action="Index">
+                    <label for="query" class="form-label">Szukaj produktu</label>
+                    <div class="input-group">
+                        <input id="query" name="query" value="@Model.Query" class="form-control form-control-lg" placeholder="np. mleko, maslo, biedronka, kawa" />
+                        <button class="btn btn-primary btn-lg" type="submit">Szukaj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-band">
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <span>@Model.Products.Count</span>
+                    <p>produktow w bazie</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <span>@Model.Stores.Count</span>
+                    <p>sklepow</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <span>@Model.Offers.Count</span>
+                    <p>widocznych ofert</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Smart Unit Pricing</p>
+            <h2>Oferty posortowane wedlug ceny jednostkowej</h2>
+        </div>
+        <a class="btn btn-outline-primary" asp-action="Basket">Policz koszyk</a>
+    </div>
+
+    @if (!Model.Offers.Any())
+    {
+        <div class="alert alert-info">Brak ofert dla podanej frazy.</div>
+    }
+    else
+    {
+        <div class="table-responsive data-surface">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Sklep</th>
+                        <th>Cena</th>
+                        <th>Cena jednostkowa</th>
+                        <th>Promocja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var offer in Model.Offers.OrderBy(offer => offer.UnitPrice))
+                {
+                    <tr>
+                        <td>
+                            <strong>@offer.Product?.Name</strong>
+                            <span class="text-muted d-block small">@offer.Product?.Quantity @offer.Product?.UnitName</span>
+                        </td>
+                        <td>@offer.Store?.Name</td>
+                        <td>
+                            @if (offer.PromoPrice.HasValue)
+                            {
+                                <span class="price-muted">@offer.Price.ToString("0.00") zl</span>
+                                <strong>@offer.PromoPrice.Value.ToString("0.00") zl</strong>
+                            }
+                            else
+                            {
+                                <strong>@offer.Price.ToString("0.00") zl</strong>
+                            }
+                        </td>
+                        <td>@offer.UnitPrice.ToString("0.00") zl / @offer.Product?.UnitName</td>
+                        <td>
+                            @if (!string.IsNullOrWhiteSpace(offer.PromoDescription))
+                            {
+                                <span class="badge text-bg-success">@offer.PromoDescription</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">-</span>
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

@@ -1,0 +1,78 @@
+@model BasketViewModel
+
+@{
+    ViewData["Title"] = "Koszyk";
+}
+
+<section class="page-band">
+    <div class="container">
+        <p class="eyebrow">Kalkulator koszyka</p>
+        <h1>Sprawdz, gdzie najtaniej kupisz wszystko</h1>
+        <p>Wpisz produkty po przecinku albo w osobnych liniach. System porowna sklepy, promocje i koszt dostawy.</p>
+    </div>
+</section>
+
+<section class="container py-5">
+    <form asp-action="Basket" method="post" class="data-surface p-4 mb-4" id="basketForm">
+        <label asp-for="ItemsText" class="form-label">Lista zakupow</label>
+        <textarea asp-for="ItemsText" class="form-control" rows="5" placeholder="mleko&#10;chleb&#10;maslo"></textarea>
+        <span asp-validation-for="ItemsText" class="text-danger"></span>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="btn btn-primary" type="submit">Oblicz koszyk</button>
+            <button class="btn btn-outline-secondary" type="button" data-sample-basket>Wstaw przyklad</button>
+        </div>
+    </form>
+
+    @if (Model.Results.Any())
+    {
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Ranking</p>
+                <h2>Wyniki dla Twojej listy</h2>
+            </div>
+        </div>
+
+        <div class="row g-3">
+        @foreach (var result in Model.Results)
+        {
+            <div class="col-lg-6">
+                <article class="result-card @(result.IsComplete ? "complete" : "incomplete")">
+                    <div class="d-flex justify-content-between gap-3">
+                        <div>
+                            <h3>@result.Store.Name</h3>
+                            <p class="text-muted mb-0">@result.Store.Type</p>
+                        </div>
+                        <div class="text-end">
+                            <span class="result-total">@result.Total.ToString("0.00") zl</span>
+                            <p class="text-muted small mb-0">z dostawa</p>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    @if (result.SelectedOffers.Any())
+                    {
+                        <ul class="list-unstyled mb-3">
+                        @foreach (var offer in result.SelectedOffers)
+                        {
+                            <li class="d-flex justify-content-between">
+                                <span>@offer.Product?.Name</span>
+                                <strong>@offer.EffectivePrice.ToString("0.00") zl</strong>
+                            </li>
+                        }
+                        </ul>
+                    }
+
+                    <p class="small mb-1">Produkty: @result.ProductsTotal.ToString("0.00") zl</p>
+                    <p class="small mb-3">Dostawa: @result.DeliveryCost.ToString("0.00") zl</p>
+
+                    @if (!result.IsComplete)
+                    {
+                        <div class="alert alert-warning mb-0">Brakuje: @string.Join(", ", result.MissingProducts)</div>
+                    }
+                </article>
+            </div>
+        }
+        </div>
+    }
+</section>

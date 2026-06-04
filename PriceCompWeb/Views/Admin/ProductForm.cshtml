@@ -1,0 +1,28 @@
+@model Product
+
+@{
+    ViewData["Title"] = Model.Id == 0 ? "Dodaj produkt" : "Edytuj produkt";
+    var action = Model.Id == 0 ? "CreateProduct" : "EditProduct";
+}
+
+<section class="container py-5 narrow">
+    <h1>@ViewData["Title"]</h1>
+    <form asp-action="@action" method="post" class="data-surface p-4">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3"><label asp-for="Name" class="form-label"></label><input asp-for="Name" class="form-control" /><span asp-validation-for="Name" class="text-danger"></span></div>
+        <div class="mb-3"><label asp-for="Category" class="form-label"></label><input asp-for="Category" class="form-control" /></div>
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="Quantity" class="form-label"></label><input asp-for="Quantity" class="form-control" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="UnitName" class="form-label"></label><input asp-for="UnitName" class="form-control" /></div>
+        </div>
+        <div class="mb-3"><label asp-for="Description" class="form-label"></label><textarea asp-for="Description" class="form-control" rows="3"></textarea></div>
+        <div class="mb-3"><label asp-for="ImageUrl" class="form-label"></label><input asp-for="ImageUrl" class="form-control" /></div>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+        <a class="btn btn-outline-secondary" asp-action="Products">Anuluj</a>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

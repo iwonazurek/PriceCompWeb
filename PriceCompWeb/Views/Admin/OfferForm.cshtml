@@ -1,0 +1,29 @@
+@model Offer
+
+@{
+    ViewData["Title"] = Model.Id == 0 ? "Dodaj oferte" : "Edytuj oferte";
+    var action = Model.Id == 0 ? "CreateOffer" : "EditOffer";
+}
+
+<section class="container py-5 narrow">
+    <h1>@ViewData["Title"]</h1>
+    <form asp-action="@action" method="post" class="data-surface p-4">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UpdatedAt" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3"><label asp-for="ProductId" class="form-label"></label><select asp-for="ProductId" asp-items="ViewBag.Products" class="form-select"></select></div>
+        <div class="mb-3"><label asp-for="StoreId" class="form-label"></label><select asp-for="StoreId" asp-items="ViewBag.Stores" class="form-select"></select></div>
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="Price" class="form-label"></label><input asp-for="Price" class="form-control" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="PromoPrice" class="form-label"></label><input asp-for="PromoPrice" class="form-control" /></div>
+        </div>
+        <div class="mb-3"><label asp-for="PromoDescription" class="form-label"></label><input asp-for="PromoDescription" class="form-control" /></div>
+        <div class="form-check mb-3"><input asp-for="IsAvailable" class="form-check-input" /><label asp-for="IsAvailable" class="form-check-label"></label></div>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+        <a class="btn btn-outline-secondary" asp-action="Offers">Anuluj</a>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

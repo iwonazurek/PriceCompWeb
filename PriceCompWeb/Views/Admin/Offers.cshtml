@@ -1,0 +1,36 @@
+@model IEnumerable<Offer>
+
+@{
+    ViewData["Title"] = "Oferty";
+}
+
+<section class="container py-5">
+    <div class="section-heading">
+        <h1>Oferty</h1>
+        <a class="btn btn-primary" asp-action="CreateOffer">Dodaj oferte</a>
+    </div>
+    <partial name="_AdminMessage" />
+    <div class="table-responsive data-surface">
+        <table class="table align-middle">
+            <thead><tr><th>Produkt</th><th>Sklep</th><th>Cena</th><th>Promocja</th><th>Dostepna</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product?.Name</td>
+                    <td>@item.Store?.Name</td>
+                    <td>@item.Price.ToString("0.00") zl</td>
+                    <td>@(item.PromoPrice?.ToString("0.00") ?? "-")</td>
+                    <td>@(item.IsAvailable ? "Tak" : "Nie")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="EditOffer" asp-route-id="@item.Id">Edytuj</a>
+                        <form asp-action="DeleteOffer" asp-route-id="@item.Id" method="post" class="d-inline" data-confirm="Usunac oferte?">
+                            <button class="btn btn-sm btn-outline-danger" type="submit">Usun</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

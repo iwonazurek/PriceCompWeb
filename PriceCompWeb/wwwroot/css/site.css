@@ -1,0 +1,279 @@
+:root {
+  --ink: #17212b;
+  --muted: #667085;
+  --surface: #ffffff;
+  --line: #e4e7ec;
+  --brand: #176b5b;
+  --brand-dark: #104d43;
+  --accent: #d9432f;
+  --soft: #f4f7f4;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  color: var(--ink);
+  background: #fbfcfb;
+}
+
+.navbar {
+  box-shadow: 0 10px 30px rgba(23, 33, 43, 0.05);
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+.btn-primary {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+}
+
+.hero {
+  min-height: 560px;
+  background-image: url("/images/shopping-hero.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.hero-overlay {
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(14, 24, 27, 0.88), rgba(14, 24, 27, 0.54) 46%, rgba(14, 24, 27, 0.1));
+}
+
+.hero-content {
+  max-width: 680px;
+  color: #ffffff;
+  padding: 72px 0;
+}
+
+.hero h1,
+.page-band h1 {
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+}
+
+.hero p {
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.search-panel {
+  max-width: 620px;
+  margin-top: 32px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.stats-band {
+  padding: 24px 0;
+  background: var(--soft);
+  border-block: 1px solid var(--line);
+}
+
+.stat-box {
+  height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.stat-box span {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+
+.stat-box p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.section-heading h1,
+.section-heading h2 {
+  margin: 0;
+  font-weight: 800;
+}
+
+.data-surface {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 14px 40px rgba(23, 33, 43, 0.06);
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.price-muted {
+  display: block;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.page-band {
+  padding: 72px 0;
+  color: #ffffff;
+  background: #17342f;
+}
+
+.page-band p {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.narrow {
+  max-width: 760px;
+}
+
+.result-card,
+.admin-tile {
+  display: block;
+  height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 14px 40px rgba(23, 33, 43, 0.05);
+}
+
+.result-card.complete {
+  border-left: 5px solid var(--brand);
+}
+
+.result-card.incomplete {
+  border-left: 5px solid #f0ad4e;
+}
+
+.result-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.result-total {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-tile strong,
+.admin-tile span {
+  display: block;
+}
+
+.admin-tile strong {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.admin-tile span {
+  color: var(--muted);
+}
+
+.admin-tile:hover {
+  border-color: var(--brand);
+}
+
+@media (max-width: 991.98px) {
+  .hero,
+  .hero-overlay {
+    min-height: 500px;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .admin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero,
+  .hero-overlay {
+    min-height: 540px;
+  }
+
+  .hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .search-panel {
+    padding: 14px;
+  }
+
+  .search-panel .input-group {
+    display: grid;
+    gap: 10px;
+  }
+
+  .search-panel .form-control,
+  .search-panel .btn {
+    width: 100%;
+    border-radius: 8px !important;
+  }
+
+  .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}

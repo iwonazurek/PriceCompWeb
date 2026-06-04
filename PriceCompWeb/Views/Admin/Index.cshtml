@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Panel admina";
+}
+
+<section class="page-band">
+    <div class="container">
+        <p class="eyebrow">CMS</p>
+        <h1>Panel zarzadzania</h1>
+        <p>Zmieniaj produkty, sklepy, oferty, promocje oraz tresci widoczne na stronie.</p>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row g-3 mb-4">
+        <div class="col-md-3"><div class="stat-box"><span>@ViewBag.ProductsCount</span><p>produkty</p></div></div>
+        <div class="col-md-3"><div class="stat-box"><span>@ViewBag.StoresCount</span><p>sklepy</p></div></div>
+        <div class="col-md-3"><div class="stat-box"><span>@ViewBag.OffersCount</span><p>oferty</p></div></div>
+        <div class="col-md-3"><div class="stat-box"><span>@ViewBag.ContentsCount</span><p>tresci</p></div></div>
+    </div>
+
+    <div class="admin-grid">
+        <a class="admin-tile" asp-action="Products"><strong>Produkty</strong><span>Dodawanie i edycja produktow.</span></a>
+        <a class="admin-tile" asp-action="Stores"><strong>Sklepy</strong><span>Dane sklepow i koszt dostawy.</span></a>
+        <a class="admin-tile" asp-action="Offers"><strong>Oferty</strong><span>Ceny, promocje i dostepnosc.</span></a>
+        <a class="admin-tile" asp-action="Contents"><strong>Tresci strony</strong><span>Teksty edytowane z poziomu CMS.</span></a>
+    </div>
+</section>

@@ -1,0 +1,33 @@
+@model IEnumerable<PageContent>
+
+@{
+    ViewData["Title"] = "Tresci";
+}
+
+<section class="container py-5">
+    <div class="section-heading">
+        <h1>Tresci strony</h1>
+        <a class="btn btn-primary" asp-action="CreateContent">Dodaj tresc</a>
+    </div>
+    <partial name="_AdminMessage" />
+    <div class="table-responsive data-surface">
+        <table class="table align-middle">
+            <thead><tr><th>Klucz</th><th>Tytul</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><code>@item.Key</code></td>
+                    <td>@item.Title</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="EditContent" asp-route-id="@item.Id">Edytuj</a>
+                        <form asp-action="DeleteContent" asp-route-id="@item.Id" method="post" class="d-inline" data-confirm="Usunac tresc?">
+                            <button class="btn btn-sm btn-outline-danger" type="submit">Usun</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

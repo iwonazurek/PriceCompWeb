@@ -1,0 +1,35 @@
+@model AdminLoginViewModel
+
+@{
+    ViewData["Title"] = "Logowanie";
+}
+
+<section class="page-band">
+    <div class="container">
+        <p class="eyebrow">Panel administracyjny</p>
+        <h1>Logowanie</h1>
+        <p>Dane testowe: admin@pricecomp.local / Admin123!</p>
+    </div>
+</section>
+
+<section class="container py-5 narrow">
+    <form asp-action="Login" method="post" class="data-surface p-4">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" autocomplete="username" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" autocomplete="current-password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Zaloguj</button>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

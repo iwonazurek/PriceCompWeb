@@ -1,0 +1,26 @@
+@model Store
+
+@{
+    ViewData["Title"] = Model.Id == 0 ? "Dodaj sklep" : "Edytuj sklep";
+    var action = Model.Id == 0 ? "CreateStore" : "EditStore";
+}
+
+<section class="container py-5 narrow">
+    <h1>@ViewData["Title"]</h1>
+    <form asp-action="@action" method="post" class="data-surface p-4">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3"><label asp-for="Name" class="form-label"></label><input asp-for="Name" class="form-control" /><span asp-validation-for="Name" class="text-danger"></span></div>
+        <div class="mb-3"><label asp-for="Type" class="form-label"></label><select asp-for="Type" asp-items="Html.GetEnumSelectList<StoreType>()" class="form-select"></select></div>
+        <div class="mb-3"><label asp-for="City" class="form-label"></label><input asp-for="City" class="form-control" /></div>
+        <div class="mb-3"><label asp-for="Address" class="form-label"></label><input asp-for="Address" class="form-control" /></div>
+        <div class="mb-3"><label asp-for="WebsiteUrl" class="form-label"></label><input asp-for="WebsiteUrl" class="form-control" /></div>
+        <div class="mb-3"><label asp-for="DeliveryCost" class="form-label"></label><input asp-for="DeliveryCost" class="form-control" /></div>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+        <a class="btn btn-outline-secondary" asp-action="Stores">Anuluj</a>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
