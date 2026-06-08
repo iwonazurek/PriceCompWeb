@@ -94,7 +94,9 @@ Przechowuje edytowalne tresci strony.
 
 ## Logika koszyka
 
-`ShoppingBasketService` pobiera liste produktow wpisanych przez uzytkownika. Dla kazdego sklepu sprawdza, czy sklep posiada produkty z listy. Jezeli produkt istnieje w danym sklepie, wybierana jest najtansza oferta. Wynik zawiera:
+Koszyk ma dwa etapy. Najpierw uzytkownik wpisuje ogolne nazwy produktow, np. `mleko` albo `chleb`. Aplikacja wyszukuje pasujace produkty i jezeli dla jednej pozycji istnieje wiecej niz jedna mozliwosc, pokazuje formularz doprecyzowania. Uzytkownik wybiera wtedy konkretny produkt, np. `Mleko UHT 2% 1 l` zamiast ogolnego hasla `mleko`.
+
+Po wyborze konkretnych produktow `ShoppingBasketService` sprawdza, czy sklepy maja wybrane produkty w ofercie. Dla kazdego sklepu wybierana jest najtansza oferta danego produktu. Wynik zawiera:
 
 - sklep,
 - koszt produktow,
@@ -102,6 +104,8 @@ Przechowuje edytowalne tresci strony.
 - cene laczna,
 - liste brakujacych produktow,
 - wybrane oferty.
+
+Dzieki temu koszyk nie wybiera losowo lub automatycznie produktu z ogolnego zapytania. Uzytkownik sam decyduje, ktory wariant produktu chce porownac.
 
 ## Wyszukiwanie
 
@@ -120,7 +124,7 @@ Panel admina wymaga zalogowania. Akcje modyfikujace dane sa zabezpieczone przez 
 - wyszukiwanie produktow,
 - sortowanie ofert wedlug ceny jednostkowej,
 - obsluga promocji,
-- kalkulator koszyka,
+- kalkulator koszyka z doprecyzowaniem produktu,
 - CRUD produktow,
 - CRUD sklepow,
 - CRUD ofert,

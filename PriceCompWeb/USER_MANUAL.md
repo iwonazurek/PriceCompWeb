@@ -20,8 +20,11 @@ Ta instrukcja opisuje podstawowa obsluge aplikacji Asystent Zakupowy.
 1. Kliknij w menu `Koszyk`.
 2. Wpisz produkty, ktore chcesz kupic. Kazdy produkt moze byc w osobnej linii.
 3. Kliknij `Oblicz koszyk`.
-4. Aplikacja pokaze ranking sklepow.
-5. Jezeli w sklepie brakuje produktu, zobaczysz komunikat `Brakuje`.
+4. Jezeli wpisana nazwa pasuje do kilku produktow, aplikacja pokaze sekcje `Doprecyzuj koszyk`.
+5. Wybierz z listy konkretny produkt, np. `Mleko UHT 2% 1 l` zamiast samego hasla `mleko`.
+6. Kliknij `Porownaj wybrane produkty`.
+7. Aplikacja pokaze ranking sklepow.
+8. Jezeli w sklepie brakuje produktu, zobaczysz komunikat `Brakuje`.
 
 ## 4. Logowanie do panelu admina
 

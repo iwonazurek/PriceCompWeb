@@ -7,7 +7,7 @@ Asystent Zakupowy to responsywna aplikacja webowa ASP.NET Core MVC do porownywan
 - publiczna lista ofert z wyszukiwarka produktow,
 - wyszukiwanie po fragmentach nazw, opisach, kategoriach i nazwach sklepow,
 - porownywanie ceny jednostkowej, np. zl/kg lub zl/l,
-- kalkulator koszyka z rankingiem sklepow,
+- kalkulator koszyka z wyborem konkretnego produktu i rankingiem sklepow,
 - panel administracyjny zabezpieczony logowaniem,
 - CRUD produktow, sklepow, ofert i tresci strony,
 - seed danych testowych przy pierwszym uruchomieniu,
