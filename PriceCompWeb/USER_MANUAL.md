@@ -1,7 +1,5 @@
 # Instrukcja uzytkownika
 
-Ta instrukcja opisuje podstawowa obsluge aplikacji Asystent Zakupowy.
-
 ## 1. Wejscie na strone
 
 1. Uruchom aplikacje komenda `dotnet run`.
@@ -88,12 +86,3 @@ Ta instrukcja opisuje podstawowa obsluge aplikacji Asystent Zakupowy.
 1. Kliknij `Wyloguj` w prawym gornym rogu.
 2. Po wylogowaniu panel admina ponownie bedzie wymagac hasla.
 
-## Miejsca na zrzuty ekranu
-
-Po uruchomieniu aplikacji warto dodac do dokumentacji zrzuty:
-
-- strona glowna,
-- koszyk z wynikami,
-- ekran logowania,
-- panel admina,
-- formularz edycji tresci.
