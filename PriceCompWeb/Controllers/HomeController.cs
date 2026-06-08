@@ -60,11 +60,83 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Basket(BasketViewModel model)
     {
-        var items = model.ItemsText
-            .Split(new[] { "\r\n", "\n", "," }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var selectedProductIds = model.SelectedProductIds
+            .Where(id => id > 0)
+            .Distinct()
+            .ToList();
 
-        model.Results = await _basketService.CalculateAsync(items);
+        if (selectedProductIds.Count > 0)
+        {
+            model.SelectedProductIds = selectedProductIds;
+            model.Results = await _basketService.CalculateByProductIdsAsync(selectedProductIds);
+            return View(model);
+        }
+
+        var items = model.ItemsText
+            .Split(new[] { "\r\n", "\n", "," }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        if (items.Count == 0)
+        {
+            ModelState.AddModelError(nameof(model.ItemsText), "Wpisz przynajmniej jeden produkt.");
+            return View(model);
+        }
+
+        model.SelectionItems = await BuildBasketSelectionAsync(items);
+
+        if (model.SelectionItems.Any(item => item.Options.Count != 1))
+        {
+            return View(model);
+        }
+
+        model.SelectedProductIds = model.SelectionItems
+            .Select(item => item.Options[0].Id)
+            .ToList();
+
+        model.Results = await _basketService.CalculateByProductIdsAsync(model.SelectedProductIds);
+        model.SelectionItems = Array.Empty<BasketSelectionItem>();
         return View(model);
+    }
+
+    private async Task<IReadOnlyList<BasketSelectionItem>> BuildBasketSelectionAsync(IReadOnlyList<string> items)
+    {
+        var offers = await _db.Offers
+            .Include(offer => offer.Product)
+            .Include(offer => offer.Store)
+            .Where(offer => offer.IsAvailable && offer.Product != null)
+            .ToListAsync();
+
+        return items
+            .Select(item => new BasketSelectionItem
+            {
+                Query = item,
+                Options = offers
+                    .Where(offer => ProductSearch.Matches(offer, item))
+                    .GroupBy(offer => offer.ProductId)
+                    .Select(group =>
+                    {
+                        var offer = group.First();
+                        return new
+                        {
+                            Product = offer.Product!,
+                            Score = group.Max(candidate => ProductSearch.Score(candidate, item))
+                        };
+                    })
+                    .OrderByDescending(match => match.Score)
+                    .ThenBy(match => match.Product.Name)
+                    .Take(8)
+                    .Select(match => new BasketProductOption
+                    {
+                        Id = match.Product.Id,
+                        Name = match.Product.Name,
+                        Category = match.Product.Category,
+                        Quantity = match.Product.Quantity,
+                        UnitName = match.Product.UnitName
+                    })
+                    .ToList()
+            })
+            .ToList();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

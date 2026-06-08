@@ -198,6 +198,21 @@ body {
   font-weight: 800;
 }
 
+.choice-block {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.choice-block:first-of-type {
+  border-top: 0;
+}
+
+.choice-block h3 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
 .result-total {
   font-size: 1.4rem;
   font-weight: 800;
